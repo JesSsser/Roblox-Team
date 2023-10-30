@@ -32,7 +32,7 @@ pipeline {
     	    steps {
                // Execute SonarQube analysis using Maven
 	     	    withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
-                    sh "mvn sonar:sonar -Dsonar.login=${env.SONAR_TOKEN}"
+                    sh "mvn sonar:sonar -Dsonar.login=${squ_ec74a2250182fb69ea89b7dcad0f0fa4e5042e4b}"
 		   }
     		}
 	    }
