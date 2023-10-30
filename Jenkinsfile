@@ -11,13 +11,29 @@ pipeline {
             }
         }
 
-        stage('Maven Build') {
+        stage('Maven Clean') {
             steps {
-                // Run the Maven clean and compile commands
+                // Run the Maven clean command
                 script {
-                    sh 'mvn clean compile'
+                    sh 'mvn clean'
                 }
             }
+	}
+
+        stage('Maven Compile') {
+            steps {
+                // Run the Maven clean command
+                script {
+                    sh 'mvn compile'
+		}
+            }	
         }
+
+	stage('SonarQube Analysis') {
+    	    steps {
+               // Execute SonarQube analysis using Maven
+                    sh 'mvn sonar:sonar'
+    		}
+	    }
+  	}
     }
-}
