@@ -32,7 +32,9 @@ pipeline {
 	stage('SonarQube Analysis') {
     	    steps {
                // Execute SonarQube analysis using Maven
-                     sh 'mvn sonar:sonar'
+	     	    withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+                    sh "mvn sonar:sonar -Dsonar.login=${env.SONAR_TOKEN}"
+		   }
     		}
 	    }
   	}
