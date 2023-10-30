@@ -28,5 +28,13 @@ pipeline {
 		}
             }	
         }
+         stage('SonarQube Analysis') {
+            steps {
+                // Run the Maven clean command
+                script {
+                    sh 'mvn sonar:sonar'
+		}
+            }	
+        }
     }
 }
