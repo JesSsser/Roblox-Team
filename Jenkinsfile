@@ -29,12 +29,12 @@ pipeline {
             }	
         }
          stage('SonarQube Analysis') {
-            steps {
-                // Run the Maven clean command
-                script {
-                    sh 'mvn sonar:sonar'
-		}
-            }	
-        }
+    	    steps {
+               // Execute SonarQube analysis using Maven
+	     	    withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+                    sh "mvn sonar:sonar -Dsonar.login=${env.SONAR_TOKEN}"
+		   }
+    		}
+	    }
     }
 }
