@@ -1,4 +1,8 @@
 pipeline {
+	environment { 
+          registryCredential = 'dockerhub_id' 
+          dockerImage = 'kaddem-0.0.1.jar' 
+    }
     agent any
 
     stages {
@@ -55,6 +59,17 @@ pipeline {
 			}
 		 }
 	    }
+
+	stage('Deploying Docker image') {
+	   steps {
+                // Étape du deployment de l'image docker de l'application spring boot
+		  script { 
+                   	     docker.withRegistry( '', registryCredential ) { 
+                             dockerImage.push() 
+                             }
+	  		 }
+	   	 }
+	     }
 	
   	}
     }
