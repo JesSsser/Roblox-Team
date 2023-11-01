@@ -52,9 +52,15 @@
 	<!-- Deploy to Nexus -->
 	<distributionManagement>
 		<repository>
-            <id>deploymentRepo</id>
-            <name>Nexus Repository</name>
-            <url>http://localhost:8081/repository/maven-releases/</url>
+            		<id>deploymentRepo</id>
+            		<name>Nexus Repository</name>
+            		<url>http://localhost:8081/repository/maven-releases/</url>
+			<releases>
+      				<enabled>false</enabled>
+    			</releases>
+    			<snapshots>
+      				<enabled>true</enabled>
+    			</snapshots>
 		</repository>
 	</distributionManagement>
 
