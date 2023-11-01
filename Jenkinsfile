@@ -51,7 +51,7 @@ pipeline {
 	   steps {
                 // Étape du build de l'image docker de l'application spring boot
 		 script {
-			   docker build -t kaddem-0.0.1.jar .
+			   'docker build -t kaddem-0.0.1.jar .'
 			}
 		 }
 	    }
