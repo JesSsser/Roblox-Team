@@ -64,10 +64,10 @@ pipeline {
                 // Étape du deployment de l'image docker de l'application spring boot
 		 script {
                     // Log in to Docker registry using credentials
-                    sh "docker login -u ${DOCKER_CREDENTIALS_USR} -p ${DOCKER_CREDENTIALS_PSW}"
+                    sh "sudo docker login -u ${DOCKER_CREDENTIALS_USR} -p ${DOCKER_CREDENTIALS_PSW}"
                     
                     // Push Docker image
-                    sh 'docker push jesssser/kaddem-0.0.1.jar'
+                    sh 'sudo docker push jesssser/kaddem-0.0.1.jar'
                 }
 	   	 }
 	     }
