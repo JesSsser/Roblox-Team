@@ -1,7 +1,6 @@
 pipeline {
 	environment { 
-          registryCredential = 'dockerhub_id' 
-          dockerImage = 'kaddem-0.0.1.jar' 
+        DOCKER_CREDENTIALS = credentials('dockerhub_id')
     }
     agent any
 
@@ -63,11 +62,13 @@ pipeline {
 	stage('Deploying Docker image') {
 	   steps {
                 // Étape du deployment de l'image docker de l'application spring boot
-		  script { 
-                   	     docker.withRegistry( '', registryCredential ) { 
-                             dockerImage.push() 
-                             }
-	  		 }
+		 script {
+                    // Log in to Docker registry using credentials
+                    sh "docker login -u ${DOCKER_CREDENTIALS_USR} -p ${DOCKER_CREDENTIALS_PSW}"
+                    
+                    // Push Docker image
+                    sh 'docker push jesssser/kaddem-0.0.1.jar'
+                }
 	   	 }
 	     }
 	
