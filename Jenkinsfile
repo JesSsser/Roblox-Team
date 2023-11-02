@@ -54,9 +54,6 @@ pipeline {
 	   steps {
                 // Étape du build de l'image docker de l'application spring boot
 		 script {
-			// Granting permissions
-			  sh 'sudo chmod 666 /var/run/docker.sock'
-
 			// Generating image from Dockerfile
 			  sh 'docker build -t kaddem-0.0.1.jar .'
 			}
