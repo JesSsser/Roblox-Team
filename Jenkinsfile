@@ -63,6 +63,9 @@ pipeline {
 	   steps {
                 // Étape du deployment de l'image docker de l'application spring boot
 		 script {
+                    // Granting permissions
+			sh 'sudo chmod 666 /var/run/docker.sock'
+
                     // Log in to Docker registry using credentials
                            sh "docker login -u ${DOCKER_CREDENTIALS_USR} -p ${DOCKER_CREDENTIALS_PSW}"
                     
