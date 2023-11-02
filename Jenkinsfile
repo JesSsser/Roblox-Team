@@ -36,5 +36,14 @@ pipeline {
 		   }
     		}
 	    }
+        stage('Deploy to Nexus') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'nexus-token', usernameVariable: 'admin', passwordVariable: 'nexus')]) {
+                    sh 'mvn deploy -DskipTests --settings /usr/share/maven/conf/settings.xml'
+                }
+            }
+        }
+    }
+    
   	}
-}
+
