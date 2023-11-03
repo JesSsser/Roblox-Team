@@ -36,7 +36,7 @@ pipeline {
             steps {
                 // Run the Maven clean command
                 script {
-                    sh 'mvn test'
+                    sh 'mvn test -Dspring.profiles.active=test'
 		}
             }	
         }
