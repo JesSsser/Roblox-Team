@@ -32,6 +32,14 @@ pipeline {
             }	
         }
 
+  	stage('Test & Jacoco Static Analysis') {
+    	    steps {
+               // Execute Test using Junit + Jacoco (Mockito + Junit)
+          	  	junit 'target/surefire-reports/**/*.xml'
+          		jacoco()
+		   }
+        }
+
 	stage('SonarQube Analysis') {
     	    steps {
                // Execute SonarQube analysis using Maven
