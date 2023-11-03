@@ -32,9 +32,18 @@ pipeline {
             }	
         }
 
+ 	stage('Execute Tests') {
+            steps {
+                // Run the Maven clean command
+                script {
+                    sh 'mvn test'
+		}
+            }	
+        }
+	
   	stage('Test & Jacoco Static Analysis') {
     	    steps {
-               // Execute Test using Junit + Jacoco (Mockito + Junit)
+               // Analysis of Test using Junit + Jacoco (Mockito + Junit)
           	  	junit 'target/surefire-reports/**.xml'
           		jacoco()
 		   }
