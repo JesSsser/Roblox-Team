@@ -35,7 +35,7 @@ pipeline {
   	stage('Test & Jacoco Static Analysis') {
     	    steps {
                // Execute Test using Junit + Jacoco (Mockito + Junit)
-          	  	junit 'target/surefire-reports/*.xml'
+          	  	junit 'target/surefire-reports/**.xml'
           		jacoco()
 		   }
         }
