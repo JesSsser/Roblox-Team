@@ -6,7 +6,7 @@ pipeline {
             steps {
                 // Checks out the SCM project from the specific branch.
                 // The branch name should be replaced with your actual branch name.
-                checkout scm: [$class: 'GitSCM', branches: [[name: '*/your-branch-name']], userRemoteConfigs: [[url: 'https://github.com/your-username/your-repo.git']]]
+                checkout scm: [$class: 'GitSCM', branches: [[name: '*/Amine']], userRemoteConfigs: [[url: 'https://github.com/JesSsser/Roblox-Team.git']]]
             }
         }
         
@@ -23,7 +23,14 @@ pipeline {
                 sh 'mvn compile'
             }
         }
-
+	stage('SonarQube analysis') {
+            steps {
+                withSonarQubeEnv('sonar') {
+                    // You may want to add additional Maven properties or SonarQube options depending on your setup
+                    sh 'mvn sonar:sonar'
+                }
+            }
+        }
 
     }
 
