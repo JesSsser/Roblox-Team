@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         // Assumes that Maven is defined in Jenkins global tools configuration.
-        maven 'Maven-3.6.3'
+        maven 'M2_HOME'
     }
 
     stages {
@@ -28,6 +28,8 @@ pipeline {
                 sh 'mvn compile'
             }
         }
+
+
     }
 
     post {
