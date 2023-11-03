@@ -28,22 +28,24 @@ pipeline {
 		}
             }	
         }
-         stage('SonarQube Analysis') {
+       stage('SonarQube Analysis') {
     	    steps {
                // Execute SonarQube analysis using Maven
-	     	script {
-                    sh 'mvn sonar:sonar'
+	     	    withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+                    sh "mvn sonar:sonar -Dsonar.login=${env.SONAR_TOKEN}"
 		   }
     		}
 	    }
-        stage('Deploy to Nexus') {
+    }
+      stage('Nexus deploy') {
             steps {
-               script {
-                    sh 'mvn deploy'
-                }
-            }
-        }
+                // Étape pour exécuter la commande "mvn deploy" avec l'option de "skip" des tests
+  		 script {
+               		 sh 'mvn deploy -DskipTests=true'
+			}
+                   }
+               }
     }
     
-  	}
+
 
