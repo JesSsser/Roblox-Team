@@ -31,15 +31,15 @@ pipeline {
          stage('SonarQube Analysis') {
     	    steps {
                // Execute SonarQube analysis using Maven
-	     	    withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
-                    sh "mvn sonar:sonar -Dsonar.login=${env.SONAR_TOKEN}"
+	     	script {
+                    sh 'mvn sonar:sonar'
 		   }
     		}
 	    }
         stage('Deploy to Nexus') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'nexus-token', usernameVariable: 'admin', passwordVariable: 'nexus')]) {
-                    sh 'mvn deploy -DskipTests --settings /usr/share/maven/conf/settings.xml'
+               script {
+                    sh 'mvn deploy'
                 }
             }
         }
