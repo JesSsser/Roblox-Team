@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        // Assumes that Maven is defined in Jenkins global tools configuration.
-        maven 'M2_HOME'
-    }
-
     stages {
         stage('Checkout') {
             steps {
