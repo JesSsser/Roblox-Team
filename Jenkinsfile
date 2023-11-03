@@ -36,7 +36,6 @@ pipeline {
 		   }
     		}
 	    }
-    }
       stage('Nexus deploy') {
             steps {
                 // Étape pour exécuter la commande "mvn deploy" avec l'option de "skip" des tests
