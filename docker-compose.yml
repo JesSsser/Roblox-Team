@@ -6,6 +6,8 @@ services:
     restart: unless-stopped
     ports:
       - 3307:3306
+    environment:
+      MYSQL_ROOT_PASSWORD:# Set your desired root password
     volumes:
       - db:/var/lib/mysql
 
@@ -17,10 +19,10 @@ services:
     ports:
       - 6868:8082
     volumes:
-      - .m2:/root/.m2  # Define a volume mapping for the .m2 directory
+      - .m2:/root/.m2
     stdin_open: true
     tty: true
 
 volumes:
   db:
-  .m2:  # Define a volume for the .m2 directory
+  .m2:
