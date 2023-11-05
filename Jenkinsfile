@@ -20,6 +20,7 @@ pipeline {
             }
 	}
 
+
         stage('Maven Compile') {
             steps {
                 // Run the Maven clean command
@@ -49,16 +50,44 @@ pipeline {
                 }
             }
         }
+            stage('Build & Test with JaCoCo') {
+      steps {
+        // Exécuter Maven avec le goal 'test' qui déclenche JaCoCo
+        script {
+          def mvnHome = tool 'M2_HOME' // Remplacez 'Maven' par le nom de l'installation Maven défini dans Jenkins
+          sh "${mvnHome}/bin/mvn clean test"
+        }
+      }
+    }
+  
+  
+  post {
+    always {
+      // Publier le rapport JaCoCo
+      jacoco(
+        execPattern: '**/**.exec', // Chemin d'accès au fichier exec de JaCoCo
+        classPattern: '**/classes', // Chemin d'accès aux fichiers de classe
+        sourcePattern: '**/src/main/java', // Chemin d'accès aux sources
+        check: [ // Configurer les seuils de couverture de code
+          methodCoverage: [minimum: '70']
+        ]
+      )
+    }
+  }
       stage('Nexus') {
             steps {
   		        script {
           		        sh 'mvn deploy -DskipTests=true'
 			}
           }
-       }
+       
+       } 
+       
+
        
     }
 }
+
     
 
 
