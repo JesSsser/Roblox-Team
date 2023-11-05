@@ -39,7 +39,7 @@ pipeline {
       stage('Nexus deploy') {
             steps {
   		 script {
-               		 sh 'mvn deploy -DskipTests=true'
+               		 sh 'mvn deploy '
 			}
                    }
                }
