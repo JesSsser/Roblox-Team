@@ -37,7 +37,7 @@ pipeline {
     		}
 	    }
         
-         stage('Test') {
+         stage('Junit/Mockito') {
             steps {
                 sh 'mvn clean verify'
                 // bat '.\\mvnw test'
@@ -49,7 +49,7 @@ pipeline {
                 }
             }
         }
-      stage('Nexus deploy') {
+      stage('Nexus') {
             steps {
   		        script {
           		        sh 'mvn deploy -DskipTests=true'
