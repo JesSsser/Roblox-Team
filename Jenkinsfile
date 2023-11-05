@@ -62,19 +62,21 @@ pipeline {
         }
       }
       
-  post {
-    always {
-      // Publier le rapport JaCoCo
-      jacoco(
-        execPattern: '**/**.exec', // Chemin d'accès au fichier exec de JaCoCo
-        classPattern: '**/classes', // Chemin d'accès aux fichiers de classe
-        sourcePattern: '**/src/main/java', // Chemin d'accès aux sources
-        check: [ // Configurer les seuils de couverture de code
-          methodCoverage: [minimum: '70']
-        ]
-      )
-    }
+post {
+  always {
+    // Publier le rapport JaCoCo
+    jacoco(
+      execPattern: '**/**.exec', // Chemin d'accès au fichier exec de JaCoCo
+      classPattern: '**/classes', // Chemin d'accès aux fichiers de classe
+      sourcePattern: '**/src/main/java', // Chemin d'accès aux sources
+      check: [ 
+        methodCoverage: [minimum: 70], // not '70' as a string, but 70 as a number
+        lineCoverage: [minimum: 80],
+        // other thresholds can be added here like branchCoverage, classCoverage, etc.
+      ]
+    )
   }
+}
             }
       stage('Nexus') {
             steps {
