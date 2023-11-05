@@ -44,5 +44,13 @@ pipeline {
 			}
                    }
                }
+	stage('Docker image') {
+	   steps {
+		 script {
+			  sh 'docker build -t mouhibbg/kaddem-0.0.1.jar .'
+			}
+		 }
+	    }
+
   	}
     }
