@@ -1,4 +1,7 @@
 pipeline {
+	environment { 
+        DOCKER_CREDENTIALS = credentials('dockerhub_id')
+   		 }
     agent any
 
     stages {
@@ -51,6 +54,16 @@ pipeline {
 			}
 		 }
 	    }
+	stage('Deploy Docker') {
+	   steps {
+		 script {
+                    
+                           sh "docker login -u ${DOCKER_CREDENTIALS_USR} -p ${DOCKER_CREDENTIALS_PSW}"
+                 
+                           sh 'docker push mouhibbg/kaddem-0.0.1.jar'
+               		 }
+	   	 }
+	     }
 
   	}
     }
