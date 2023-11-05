@@ -17,7 +17,7 @@ services:
     build: ./
     restart: on-failure
     ports:
-      - "6868:8082"  # Use quotes for port mappings
+      - "6868:8089"  # Use quotes for port mappings
     volumes:
       - .m2:/root/.m2
     stdin_open: true
