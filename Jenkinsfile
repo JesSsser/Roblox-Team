@@ -40,6 +40,7 @@ pipeline {
 		   }
     		}
 	    }
+
 	stage('Nexus') {
             steps {
   		 script {
@@ -47,6 +48,7 @@ pipeline {
 			}
                    }
                }
+
 	stage('Docker image') {
 	   steps {
 		 script {
@@ -54,6 +56,7 @@ pipeline {
 			}
 		 }
 	    }
+
 	stage('Deploy Docker') {
 	   steps {
 		 script {
@@ -64,6 +67,12 @@ pipeline {
                		 }
 	   	 }
 	     }
+
+	stage('Docker compose') {
+            steps {
+                sh 'docker-compose -f docker-compose.yml up -d'
+            			}
+       			 }
 
   	}
     }
