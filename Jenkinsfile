@@ -43,7 +43,7 @@ pipeline {
                 sh 'mvn clean verify'
                 // bat '.\\mvnw test'
             }
-         }
+         
 
             post {
                 always {
@@ -52,16 +52,14 @@ pipeline {
             }
         }
             stage('Build & Test with JaCoCo') {
-      steps {
+                steps {
         // Exécuter Maven avec le goal 'test' qui déclenche JaCoCo
-        script {
-          def mvnHome = tool 'M2_HOME' // Remplacez 'Maven' par le nom de l'installation Maven défini dans Jenkins
-          sh "${mvnHome}/bin/mvn clean test"
+                     script {
+                         def mvnHome = tool 'M2_HOME' // Remplacez 'Maven' par le nom de l'installation Maven défini dans Jenkins
+                            sh "${mvnHome}/bin/mvn clean test"
         }
       }
-    }
-  
-  
+      
   post {
     always {
       // Publier le rapport JaCoCo
@@ -75,6 +73,7 @@ pipeline {
       )
     }
   }
+            }
       stage('Nexus') {
             steps {
   		        script {
@@ -87,6 +86,7 @@ pipeline {
 
        
     }
+}
   
 
 
