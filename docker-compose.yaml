@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  app:
+    image: 'mon-app-spring-boot:latest'  # Vous devez construire votre image Docker de Spring Boot au préalable
+    ports:
+      - '8082:8082'
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/kaddem
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=
+    depends_on:
+      - db  # S'assurer que la base de données est lancée en premier
+
+  db:
+    image: 'mysql:5.7'  # Utiliser l'image officielle de MySQL
+    ports:
+      - '3306:3306'  # Exposer le port 3306 pour accéder à MySQL
+    environment:
+      - MYSQL_DATABASE=ma_base_de_donnees  # Nom de la base de données
+      - MYSQL_ROOT_PASSWORD=secret  # Mot de passe pour l'utilisateur root
+    volumes:
+      - 'db_data:/var/lib/mysql'  # Persister les données MySQL
+
+volumes:
+  db_data:  # Déclaration du volume pour la persistance MySQL

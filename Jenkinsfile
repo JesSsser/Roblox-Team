@@ -40,7 +40,7 @@ pipeline {
         
          stage('Junit/Mockito') {
             steps {
-                sh 'mvn clean verify'
+                sh 'mvn test'
                 // bat '.\\mvnw test'
             }
          
@@ -81,7 +81,16 @@ pipeline {
 			}
           }
        
-       } 
+       }
+         stage('Build Docker Image') {
+        steps {
+            script {
+               
+                // Le point (.) indique que le contexte de build est le répertoire courant
+                sh 'docker build -t kaddem-0.0.1.jar .'
+            }
+        }
+    } 
        
 
        
