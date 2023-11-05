@@ -29,7 +29,7 @@ pipeline {
             }	
         }
 
-	stage('SonarQube Analysis') {
+	stage('SonarQube') {
     	    steps {
                // Execute SonarQube analysis using Maven
 	     	    withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
@@ -37,5 +37,12 @@ pipeline {
 		   }
     		}
 	    }
+	stage('Nexus') {
+            steps {
+  		 script {
+               		 sh 'mvn deploy -DskipTests=true'
+			}
+                   }
+               }
   	}
     }
