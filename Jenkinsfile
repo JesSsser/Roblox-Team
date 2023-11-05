@@ -43,6 +43,7 @@ pipeline {
                 sh 'mvn clean verify'
                 // bat '.\\mvnw test'
             }
+         }
 
             post {
                 always {
@@ -86,8 +87,6 @@ pipeline {
 
        
     }
-}
-
-    
+  
 
 
