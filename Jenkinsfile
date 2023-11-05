@@ -55,8 +55,9 @@ pipeline {
                 steps {
         // Exécuter Maven avec le goal 'test' qui déclenche JaCoCo
                      script {
-                         def mvnHome = tool 'M2_HOME' // Remplacez 'Maven' par le nom de l'installation Maven défini dans Jenkins
-                            sh "${mvnHome}/bin/mvn clean test"
+                         
+                            sh '/opt/apache-maven-3.6.3/bin/mvn clean test'
+
         }
       }
       
