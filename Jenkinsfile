@@ -38,11 +38,23 @@ pipeline {
 	    }
       stage('Nexus deploy') {
             steps {
-  		 script {
-               		 sh 'mvn deploy -DskipTests=true'
+  		        script {
+          		        sh 'mvn deploy -DskipTests=true'
 			}
-                   }
-               }
+          }
+       }
+        stage('Test') {
+            steps {
+                sh './mvnw test'
+                // bat '.\\mvnw test'
+            }
+
+            post {
+                always {
+                    junit '**/target/surefire-reports/TEST-*.xml'
+                }
+            }
+        }
     }
 }
     
