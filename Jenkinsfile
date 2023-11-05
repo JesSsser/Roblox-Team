@@ -56,7 +56,8 @@ pipeline {
         // Exécuter Maven avec le goal 'test' qui déclenche JaCoCo
                      script {
                          
-                            sh '/opt/apache-maven-3.6.3/bin/mvn clean test'
+                           def mvnHome = tool 'Maven' 
+                                sh "${mvnHome}/bin/mvn clean test"
 
         }
       }
