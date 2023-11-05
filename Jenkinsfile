@@ -36,16 +36,10 @@ pipeline {
 		   }
     		}
 	    }
-      stage('Nexus deploy') {
+        
+         stage('Test') {
             steps {
-  		        script {
-          		        sh 'mvn deploy -DskipTests=true'
-			}
-          }
-       }
-        stage('Test') {
-            steps {
-                sh './mvnw test'
+                sh 'mvn clean verify'
                 // bat '.\\mvnw test'
             }
 
@@ -55,6 +49,14 @@ pipeline {
                 }
             }
         }
+      stage('Nexus deploy') {
+            steps {
+  		        script {
+          		        sh 'mvn deploy -DskipTests=true'
+			}
+          }
+       }
+       
     }
 }
     
