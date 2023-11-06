@@ -8,8 +8,6 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=kaddemdb
-    volumes:
-      - db:/var/lib/mysql
   backend:
     depends_on:
       - mysqldb
@@ -22,11 +20,5 @@ services:
     restart: on-failure
     ports:
       - "8089:8089"  # Use quotes for port mappings
-    volumes:
-      - .m2:/root/.m2
     stdin_open: true
     tty: true
-
-volumes:
-  db:
-  .m2:
