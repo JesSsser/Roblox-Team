@@ -7,7 +7,7 @@ services:
     ports:
       - "3307:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: "0000"  # Enclose the password in quotes
+      MYSQL_ROOT_PASSWORD: ""  # No password specified
       MYSQL_DATABASE: "kaddemdb"
     volumes:
       - db:/var/lib/mysql
@@ -18,7 +18,7 @@ services:
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/kaddemdb
       - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=
+      - SPRING_DATASOURCE_PASSWORD=  # No password specified
     build: ./
     restart: on-failure
     ports:
