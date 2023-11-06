@@ -9,6 +9,7 @@ services:
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       MYSQL_DATABASE: "kaddemdb"
+      MYSQL_ROOT_PASSWORD: ""  # Enclose the password in quotes
     volumes:
       - db:/var/lib/mysql
 
