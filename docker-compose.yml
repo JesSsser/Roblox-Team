@@ -1,24 +1,25 @@
 version: "3.8"
 
 services:
-  mysql:
+  mysqldb:
     image: mysql:5.7
     restart: unless-stopped
     ports:
       - "3306:3306"
     environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       MYSQL_DATABASE: "kaddemdb"
+      MYSQL_ROOT_PASSWORD:
     volumes:
       - db:/var/lib/mysql
 
   backend:
     depends_on:
-      - mysql
+      - mysqldb
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/kaddemdb?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD:  # Leave this field empty for no password
+      MYSQL_HOST: mysqldb
+      MYSQL_USER: root
+      MYSQL_PASSWORD:
+      MYSQL_PORT: 3306
     build: ./
     restart: on-failure
     ports:
