@@ -11,11 +11,6 @@ services:
   backend:
     depends_on:
       - mysqldb
-    environment:
-      - MYSQL_HOST=mysqldb
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=root
-      - MYSQL_PORT=3306
     build: ./
     restart: on-failure
     ports:
