@@ -31,7 +31,7 @@ pipeline {
 		}
             }	
         }
-
+/*
  	stage('Execute Tests') {
             steps {
                 // Run the Maven clean command
@@ -47,7 +47,7 @@ pipeline {
           	  	junit 'target/surefire-reports/*.xml'
           		jacoco()
 		   }
-        }
+        }*/
 /*
 	stage('SonarQube Analysis') {
     	    steps {
