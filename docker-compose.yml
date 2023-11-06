@@ -16,7 +16,7 @@ services:
     depends_on:
       - mysql
     extra_hosts:
-      - "mysql:mysqldb"
+      - "mysql:192.168.33.10:3306"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/kaddem
       - SPRING_DATASOURCE_USERNAME=root
