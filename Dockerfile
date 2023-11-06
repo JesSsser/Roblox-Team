@@ -5,7 +5,7 @@ FROM openjdk:11-jdk
 EXPOSE 8082
 
 # Ajouter le fichier JAR compilé de votre application Spring Boot au conteneur
-ADD target/kaddem-0.0.1.jar appkaddem.jar
+ADD target/kaddem-0.0.1.jar kaddem-app.jar
 
 # Exécuter l'application Spring Boot
-ENTRYPOINT ["java","-jar","/appkaddem.jar"]
+ENTRYPOINT ["java","-jar","/kaddem-app.jar"]

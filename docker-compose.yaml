@@ -16,8 +16,8 @@ services:
     ports:
       - '3306:3306'  # Exposer le port 3306 pour accéder à MySQL
     environment:
-      - MYSQL_DATABASE=ma_base_de_donnees  # Nom de la base de données
-      - MYSQL_ROOT_PASSWORD=secret  # Mot de passe pour l'utilisateur root
+      - MYSQL_DATABASE=kaddemdb  # Nom de la base de données
+      - MYSQL_ROOT_PASSWORD= # Mot de passe pour l'utilisateur root
     volumes:
       - 'db_data:/var/lib/mysql'  # Persister les données MySQL
 
