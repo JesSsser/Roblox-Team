@@ -48,7 +48,7 @@ pipeline {
           		jacoco()
 		   }
         }
-
+/*
 	stage('SonarQube Analysis') {
     	    steps {
                // Execute SonarQube analysis using Maven
@@ -56,7 +56,7 @@ pipeline {
                     sh "mvn sonar:sonar -Dsonar.login=${env.SONAR_TOKEN}"
 		   }
     		}
-	    }
+	    } */
 
 	 stage('Nexus deploy') {
             steps {
@@ -66,7 +66,7 @@ pipeline {
 			}
                    }
                }
-
+/*
 	stage('Building Docker image') {
 	   steps {
                 // Étape du build de l'image docker de l'application spring boot
@@ -88,7 +88,7 @@ pipeline {
                            sh 'docker push jesssser/kaddem-0.0.1.jar'
                 }
 	   	 }
-	     }
+	     } */
 	
 	stage('Docker compose') {
             steps {
