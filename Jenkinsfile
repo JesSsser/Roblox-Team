@@ -91,19 +91,19 @@ pipeline {
             }
         }
     } 
-    stage('Push Docker Image') {
-            steps {
-                script {
-                    // Using 'withCredentials' to securely pass Docker Hub credentials
-                    withCredentials([usernamePassword(credentialsId: 'docker_id', usernameVariable: 'khardeni', passwordVariable: '191JMT2735')]) {
-                        // Login to Docker Hub
-                        sh 'echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin'
-
-                        // Push the image to Docker Hub
-                        sh 'docker push kaddem-app:0.0.1'
-                    }
+     stage('Push Image to DockerHub') {
+        steps {
+            script {
+                // Using 'withCredentials' to securely pass Docker Hub credentials
+                withCredentials([usernamePassword(credentialsId: 'docker_id', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]) {
+                    // Login to Docker Hub
+                    sh 'echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin'
+                    
+                    // Push the image to Docker Hub
+                    sh 'docker push kaddem-app:0.0.1'
                 }
             }
+        }
        
 
        
