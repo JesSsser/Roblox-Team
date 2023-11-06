@@ -10,12 +10,12 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/etudiant")
+@RequestMapping("/")
 public class EtudiantRestController {
 	@Autowired
 	IEtudiantService etudiantService;
 	// http://localhost:8089/Kaddem/etudiant/retrieve-all-etudiants
-	@GetMapping("/retrieve-all-etudiants")
+	@GetMapping("/")
 	public List<Etudiant> getEtudiants() {
 		List<Etudiant> listEtudiants = etudiantService.retrieveAllEtudiants();
 		return listEtudiants;
