@@ -1,7 +1,7 @@
 version: "3.8"
 
 services:
-  mysqldb:
+  mysql:
     image: mysql:5.7
     restart: unless-stopped
     ports:
@@ -14,7 +14,7 @@ services:
 
   backend:
     depends_on:
-      - mysqldb
+      - mysql
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/kaddem
       - SPRING_DATASOURCE_USERNAME=root
