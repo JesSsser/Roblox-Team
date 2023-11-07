@@ -5,7 +5,6 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checks out the SCM project from the specific branch.
-                // The branch name should be replaced with your actual branch name.
                 checkout scm: [$class: 'GitSCM', branches: [[name: '*/Amine']], userRemoteConfigs: [[url: 'https://github.com/JesSsser/Roblox-Team.git']]]
             }
         }
