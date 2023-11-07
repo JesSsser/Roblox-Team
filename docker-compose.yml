@@ -12,6 +12,10 @@ services:
   backend:
     depends_on:
       - mysqldb
+    environment:
+      - spring.datasource.url=jdbc:mysql://db:3306/khaddemapp?useSSL=false
+      - spring.datasource.username=root
+      - spring.datasource.password=root
     build: ./
     restart: on-failure
     ports:
