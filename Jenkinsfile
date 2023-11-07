@@ -3,7 +3,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout Git') {
+        stage('GIT') {
             steps {
                 // Checkout the code from your Git repository
                 script {
@@ -74,7 +74,7 @@ pipeline {
             }
                     
                     // Push the image to Docker Hub
-                    sh 'docker push khardeni/kaddem-app:0.0.1'
+                    sh 'docker push kaddem-app:0.0.1'
                 }
             }
         }
