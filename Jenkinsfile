@@ -12,24 +12,37 @@ pipeline {
             }
         }
 
-        stage('Maven Clean') {
+        stage('MAVEN') {
             steps {
                 // Run the Maven clean command
                 script {
-                    sh 'mvn clean'
-                }
-            }
-	}
-
-
-        stage('Maven Compile') {
-            steps {
-                // Run the Maven clean command
-                script {
-                    sh 'mvn compile'
+                    sh 'mvn clean compile'
 		}
             }	
         }
+         stage('JUNIT/JACOCO') {
+    steps {
+        script {
+            // Set up Maven
+            def mvnHome = tool 'Maven'
+            // Run tests with Maven, this will also generate the JaCoCo reports
+            sh "${mvnHome}/bin/mvn clean test"
+        }
+    }
+    post {
+        always {
+            // Publish JUnit test results
+            junit '**/target/surefire-reports/TEST-*.xml'
+            
+            // Publish JaCoCo test coverage report
+            jacoco(
+                execPattern: '**/**.exec', // Path to JaCoCo exec files
+                classPattern: '**/classes', // Path to class files
+                sourcePattern: '**/src/main/java' // Path to source files
+            )
+        }
+    }
+}
        stage('SonarQube Analysis') {
     	    steps {
                // Execute SonarQube analysis using Maven
@@ -38,44 +51,8 @@ pipeline {
 		   }
     		}
 	    }
-        
-         stage('Junit/Mockito') {
-            steps {
-                sh 'mvn test'
-                // bat '.\\mvnw test'
-            }
          
-
-            post {
-                always {
-                    junit '**/target/surefire-reports/TEST-*.xml'
-                }
-            }
-        }
-            stage('Build & Test with JaCoCo') {
-                steps {
-        // Exécuter Maven avec le goal 'test' qui déclenche JaCoCo
-                     script {
-                         
-                           def mvnHome = tool 'Maven' 
-                                sh "${mvnHome}/bin/mvn clean test"
-
-        }
-      }
-      
-        post {
-            always {
-                 // Publier le rapport JaCoCo
-                jacoco(
-                    execPattern: '**/**.exec', // Chemin d'accès au fichier exec de JaCoCo
-                    classPattern: '**/classes', // Chemin d'accès aux fichiers de classe
-                    sourcePattern: '**/src/main/java', // Chemin d'accès aux sources
-   
-    )
-  }
-}
-            }
-      stage('Nexus') {
+      stage('NEXUS') {
             steps {
   		        script {
           		        sh 'mvn deploy -DskipTests=true'
@@ -83,23 +60,21 @@ pipeline {
           }
        
        }
-         stage('Build Docker Image') {
+         stage('DOCKER') {
         steps {
             script {
                
                 // Le point (.) indique que le contexte de build est le répertoire courant
                 sh 'docker build -t kaddem-app:0.0.1 .'
+
+                 // Using withCredentials to securely inject the Docker Hub token
+            withCredentials([string(credentialsId: 'dock_token', variable: 'DOCKERHUB_TOKEN')]) {
+                // Logging into Docker Hub using the token
+                sh 'echo $DOCKERHUB_TOKEN | docker login -u khardeni --password-stdin'
             }
-        }
-    } 
-     stage('Push Image to DockerHub') {
-        steps {
-            script {
-                
-               sh 'docker login -u khardeni -p dckr_pat_zI_OkWsN42X48HezmoL0-_XuV_s --password-stdin'
                     
                     // Push the image to Docker Hub
-                    sh 'docker push kaddem-app:0.0.1'
+                    sh 'docker push khardeni/kaddem-app:0.0.1'
                 }
             }
         }
