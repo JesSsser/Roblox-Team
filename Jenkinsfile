@@ -1,7 +1,5 @@
 pipeline {
-    environment {
-        DOCKERHUB_CREDENTIALS = credentials('docker-cred') // replace with your credentials ID
-    }
+
     agent any
 
     stages {
@@ -98,7 +96,7 @@ pipeline {
         steps {
             script {
                 
-              sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login --username $DOCKERHUB_CREDENTIALS_USR --password-stdin"
+               sh 'docker login -u khardeni -p dckr_pat_zI_OkWsN42X48HezmoL0-_XuV_s'
                     
                     // Push the image to Docker Hub
                     sh 'docker push kaddem-app:0.0.1'
