@@ -90,7 +90,7 @@ pipeline {
             steps {
                 script {
                     // Assuming docker-compose.yml is in the same directory as Jenkinsfile
-                    sh 'docker-compose -f docker-compose.yml up -d --build'
+                    sh 'docker-compose up -d --build'
                 }
             }
         }
