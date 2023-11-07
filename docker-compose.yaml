@@ -1,25 +1,25 @@
 version: '3.8'
 services:
   app:
-    image: 'mon-app-spring-boot:latest'  # Vous devez construire votre image Docker de Spring Boot au préalable
+    image: 'kaddem-app:0.0.1'  # Ensure that the Docker image is built beforehand
     ports:
-      - '8082:8082'
+      - '8089:8089'  # Match the port configured in the Spring Boot application
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/kaddem
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/kaddemdb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
       - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=
+      - SPRING_DATASOURCE_PASSWORD=  # Replace with the actual password
     depends_on:
-      - db  # S'assurer que la base de données est lancée en premier
+      - db  # Ensure the database is started first
 
   db:
-    image: 'mysql:5.7'  # Utiliser l'image officielle de MySQL
+    image: 'mysql:5.7'  # Using the official MySQL image
     ports:
-      - '3306:3306'  # Exposer le port 3306 pour accéder à MySQL
+      - '3306:3306'  # Expose port 3306 to access MySQL
     environment:
-      - MYSQL_DATABASE=kaddemdb  # Nom de la base de données
-      - MYSQL_ROOT_PASSWORD= # Mot de passe pour l'utilisateur root
+      - MYSQL_DATABASE=kaddemdb  # Database name
+      - MYSQL_ROOT_PASSWORD=  # Set a secure password for the root user
     volumes:
-      - 'db_data:/var/lib/mysql'  # Persister les données MySQL
+      - 'db_data:/var/lib/mysql'  # Persist MySQL data
 
 volumes:
-  db_data:  # Déclaration du volume pour la persistance MySQL
+  db_data:
