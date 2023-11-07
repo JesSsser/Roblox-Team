@@ -59,7 +59,7 @@ pipeline {
         // Exécuter Maven avec le goal 'test' qui déclenche JaCoCo
                      script {
                          
-                           def mvnHome = tool 'Maven' 
+                           def mvnHome = tool 'M2_HOME' 
                                 sh "${mvnHome}/bin/mvn clean test"
 
         }
