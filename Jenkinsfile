@@ -1,6 +1,8 @@
 pipeline {
 	environment { 
         DOCKER_CREDENTIALS = credentials('dockerhub_id')
+	GRAFANA_URL = 'http://192.168.33.10:3000'
+        PROMETHEUS_URL = 'http://192.168.33.10:9090'
    		 }
     agent any
 
@@ -88,6 +90,15 @@ pipeline {
                 sh 'docker-compose -f docker-compose.yml up -d'
             			}
        			 } */
-
+	    
+	stage('Prometheus') {
+            steps {
+                script {
+                    sh "curl -XPOST ${PROMETHEUS_URL}/api/v1/alerts"
+                }
+            }
+        }
+	
+	    
   	}
     }
