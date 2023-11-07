@@ -29,9 +29,9 @@ pipeline {
     	stage('Docker') {
    	    steps {
 		 script {
-			  sh 'docker build -t aminemosbeh/kaddem.jar .'
+			/*  sh 'docker build -t aminemosbeh/kaddem.jar .'*/
                    	 // 'dockerhub' is the ID you've given to the credentials in Jenkins.
-                   	 withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'DOCKERHUB_PSW', usernameVariable: 'DOCKERHUB_USR')]) {
+                   	 withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'DOCKERHUB_PSW', usernameVariable: 'DOCKERHUB_USR')]) {
                         // This will mask the password in the logs
                         sh "docker login -u $DOCKERHUB_USR -p $DOCKERHUB_PSW"		   }     
 			sh 'docker push aminemosbeh/kaddem.jar'
