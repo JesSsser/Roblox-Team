@@ -60,13 +60,20 @@ pipeline {
           }
        
        }
-         stage('DOCKER') {
+         stage('DOCKER BUILD') {
         steps {
             script {
                
                 // Le point (.) indique que le contexte de build est le répertoire courant
                 sh 'docker build -t kaddem-app:0.0.1 .'
-
+            }
+        }
+         }
+            stage('DOCKER PUSH') {
+        steps {
+            script {
+               
+        
                  // Using withCredentials to securely inject the Docker Hub token
             withCredentials([string(credentialsId: 'dock_token', variable: 'DOCKERHUB_TOKEN')]) {
                 // Logging into Docker Hub using the token
@@ -77,13 +84,11 @@ pipeline {
                     sh 'docker push kaddem-app:0.0.1'
                 }
             }
-        }
-       
-
-       
+                
+                }
     }
-}
-
+ }
+       
   
 
 
