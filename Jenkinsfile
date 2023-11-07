@@ -86,7 +86,27 @@ pipeline {
             }
                 
                 }
+        stage(' Docker Compose BUILD/RUN') {
+            steps {
+                script {
+                    // Assuming docker-compose.yml is in the same directory as Jenkinsfile
+                    sh 'docker-compose up -d --build'
+                }
+            }
+        }
+
+        // Add other stages as needed
     }
- }
+
+    post {
+        always {
+            script {
+                // This ensures that the Docker Compose services are always taken down after the build finishes
+                sh 'docker-compose down'
+            }
+        }
+    }
+    }
+ 
        
   
