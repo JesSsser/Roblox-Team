@@ -47,7 +47,7 @@ pipeline {
                 // bat '.\\mvnw test'
             }
 
-        }
+        } */
 
 	stage('Nexus') {
             steps {
@@ -55,7 +55,7 @@ pipeline {
                		 sh 'mvn deploy -DskipTests=true'
 			}
                    }
-               } */
+               } 
 
 	stage('Docker image') {
 	   steps {
