@@ -96,7 +96,7 @@ pipeline {
         steps {
             script {
                 
-               sh 'docker login -u khardeni -p dckr_pat_zI_OkWsN42X48HezmoL0-_XuV_s'
+               sh 'docker login -u khardeni -p dckr_pat_zI_OkWsN42X48HezmoL0-_XuV_s --password-stdin'
                     
                     // Push the image to Docker Hub
                     sh 'docker push kaddem-app:0.0.1'
