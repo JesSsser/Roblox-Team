@@ -29,17 +29,8 @@ pipeline {
 		}
             }	
         }
-
-	stage('SonarQube') {
-    	    steps {
-               // Execute SonarQube analysis using Maven
-	     	    withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
-                    sh "mvn sonar:sonar -Dsonar.login=${env.SONAR_TOKEN}"
-		   }
-    		}
-	    } 
-	    
-	 stage('Tests') {
+	     
+	stage('Tests') {
             steps {
                 sh 'mvn test'
                 // bat '.\\mvnw test'
@@ -54,6 +45,17 @@ pipeline {
 		   }
         }
 
+
+	stage('SonarQube') {
+    	    steps {
+               // Execute SonarQube analysis using Maven
+	     	    withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+                    sh "mvn sonar:sonar -Dsonar.login=${env.SONAR_TOKEN}"
+		   }
+    		}
+	    } 
+	    
+	
 	stage('Nexus') {
             steps {
   		 script {
