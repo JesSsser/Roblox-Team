@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+environment {
+        DOCKERHUB_CREDENTIALS = credentials('docker-id') // replace with your credentials ID
+    }
     stages {
         stage('Checkout Git') {
             steps {
@@ -94,10 +96,8 @@ pipeline {
      stage('Push Image to DockerHub') {
         steps {
             script {
-                // Using 'withCredentials' to securely pass Docker Hub credentials
-                withCredentials([usernamePassword(credentialsId: 'docker_id', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]) {
-                    // Login to Docker Hub
-                    sh 'echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin'
+                
+              sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login --username $DOCKERHUB_CREDENTIALS_USR --password-stdin"
                     
                     // Push the image to Docker Hub
                     sh 'docker push kaddem-app:0.0.1'
@@ -109,7 +109,7 @@ pipeline {
        
     }
 }
-}
+
   
 
 
