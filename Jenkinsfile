@@ -29,7 +29,7 @@ pipeline {
 		}
             }	
         }
-/*
+
 	stage('SonarQube') {
     	    steps {
                // Execute SonarQube analysis using Maven
@@ -37,7 +37,7 @@ pipeline {
                     sh "mvn sonar:sonar -Dsonar.login=${env.SONAR_TOKEN}"
 		   }
     		}
-	    } */
+	    } 
 	    
 	 stage('Tests') {
             steps {
@@ -61,7 +61,7 @@ pipeline {
 			}
                    }
                } 
-
+/*
 	stage('Docker image') {
 	   steps {
 		 script {
@@ -85,7 +85,7 @@ pipeline {
             steps {
                 sh 'docker-compose -f docker-compose.yml up -d'
             			}
-       			 }
+       			 } */
 
   	}
     }
