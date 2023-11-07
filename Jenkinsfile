@@ -31,7 +31,7 @@ pipeline {
 		}
             }	
         }
-
+/*
 	stage('SonarQube') {
     	    steps {
                // Execute SonarQube analysis using Maven
@@ -55,7 +55,7 @@ pipeline {
                		 sh 'mvn deploy -DskipTests=true'
 			}
                    }
-               }
+               } */
 
 	stage('Docker image') {
 	   steps {
