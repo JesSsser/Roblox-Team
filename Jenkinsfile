@@ -40,6 +40,43 @@ pipeline {
 		   }
     		}
 	    }
+	    
+	 stage('Tests') {
+            steps {
+                sh 'mvn test'
+                // bat '.\\mvnw test'
+            }
+         
+
+            post {
+                always {
+                    junit '**/target/surefire-reports/TEST-*.xml'
+                }
+            }
+        }
+	    stage('Build & Test with JaCoCo') {
+                steps {
+        // Exécuter Maven avec le goal 'test' qui déclenche JaCoCo
+                     script {
+                         
+                           def mvnHome = tool 'Maven' 
+                                sh "${mvnHome}/bin/mvn clean test"
+
+        }
+      }
+      
+        post {
+            always {
+                 // Publier le rapport JaCoCo
+                jacoco(
+                    execPattern: '**/**.exec', // Chemin d'accès au fichier exec de JaCoCo
+                    classPattern: '**/classes', // Chemin d'accès aux fichiers de classe
+                    sourcePattern: '**/src/main/java', // Chemin d'accès aux sources
+   
+    )
+  }
+}
+            }
 
 	stage('Nexus') {
             steps {
