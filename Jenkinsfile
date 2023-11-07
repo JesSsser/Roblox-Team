@@ -98,14 +98,14 @@ pipeline {
         // Add other stages as needed
     }
 
-    post {
+  /*  post {
         always {
             script {
                 // This ensures that the Docker Compose services are always taken down after the build finishes
                 sh 'docker-compose down'
             }
         }
-    }
+    } */
     }
  
        
