@@ -14,18 +14,16 @@ pipeline {
             }
         }
 
-        stage('Maven Clean') {
+        stage('MVN Clean') {
             steps {
-                // Run the Maven clean command
                 script {
                     sh 'mvn clean'
                 }
             }
 	}
 
-        stage('Maven Compile') {
+        stage('MVN Build') {
             steps {
-                // Run the Maven clean command
                 script {
                     sh 'mvn compile'
 		}
@@ -39,7 +37,7 @@ pipeline {
                     sh "mvn sonar:sonar -Dsonar.login=${env.SONAR_TOKEN}"
 		   }
     		}
-	    }
+	    } */
 	    
 	 stage('Tests') {
             steps {
@@ -47,7 +45,14 @@ pipeline {
                 // bat '.\\mvnw test'
             }
 
-        } */
+        } 
+
+	stage('Jacoco') {
+    	    steps {
+          	  	junit 'target/surefire-reports/*.xml'
+          		jacoco()
+		   }
+        }
 
 	stage('Nexus') {
             steps {
