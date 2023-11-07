@@ -65,7 +65,7 @@ pipeline {
             script {
                
                 // Le point (.) indique que le contexte de build est le répertoire courant
-                sh 'docker build -t kaddem-app:0.0.1 .'
+                sh 'docker build -t khardeni/kaddem-app:0.0.1 .'
             }
         }
          }
