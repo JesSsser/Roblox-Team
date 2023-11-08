@@ -97,4 +97,18 @@ pipeline {
         }
 	
   	}
+	  post {
+        success {
+            emailext subject: "Build Successful: ${currentBuild.fullDisplayName}",
+                      body: "The build was successful.",
+                      recipientProviders: [[$class: 'DevelopersRecipientProvider']],
+                      to: 'jesser.elouni@esprit.tn'
+        }
+        failure {
+            emailext subject: "Build Failed: ${currentBuild.fullDisplayName}",
+                      body: "The build has failed.",
+                      recipientProviders: [[$class: 'DevelopersRecipientProvider']],
+                      to: 'jesser.elouni@esprit.tn'
+        }
+    }
     }
