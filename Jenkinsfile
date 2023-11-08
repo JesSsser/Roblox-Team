@@ -98,20 +98,37 @@ pipeline {
 	
   	}
 	  post {
-        success {
-		mail(
-			    to: 'jesser.elouni@esprit.tn',
-			    subject: "Build Successful: ${currentBuild.fullDisplayName}",
-			    body: 'The build was successful.'
+		success {
+		    mail(
+		        to: 'jesser.elouni@esprit.tn',
+		        subject: "Build Successful: ${currentBuild.fullDisplayName}",
+		        body: '''
+		        <html>
+		        <body>
+		            <h2 style="color: green;">Build Successful</h2>
+		            <p>The build for ${currentBuild.fullDisplayName} was successful.</p>
+		            <p>Additional details can be added here.</p>
+		        </body>
+		        </html>
+		        '''
 		    )
+		}
+		
+		failure {
+		    mail(
+		        to: 'jesser.elouni@esprit.tn',
+		        subject: "Build Failed: ${currentBuild.fullDisplayName}",
+		        body: '''
+		        <html>
+		        <body>
+		            <h2 style="color: red;">Build Failed</h2>
+		            <p>The build for ${currentBuild.fullDisplayName} has failed.</p>
+		            <p>Additional details can be added here.</p>
+		        </body>
+		        </html>
+		        '''
+		    )
+		}
 
-        }
-        failure {
-		mail(
-			    to: 'jesser.elouni@esprit.tn',
-			    subject: "Build Failed: ${currentBuild.fullDisplayName}",
-			    body: 'The build has failed.'
-		    )
-       		 }
    	 }
     }
