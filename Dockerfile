@@ -2,7 +2,7 @@
 FROM openjdk:11-jdk
 
 # Exposer le port sur lequel votre application Spring Boot écoute
-EXPOSE 8082
+EXPOSE 8089
 
 # Ajouter le fichier JAR compilé de votre application Spring Boot au conteneur
 ADD target/kaddem-0.0.1.jar kaddem-app.jar
