@@ -1,4 +1,4 @@
-package tn.esprit.spring.kaddem.controllers;
+package tn.esprit.spring.kaddem;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;

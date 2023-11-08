@@ -20,5 +20,14 @@ pipeline {
 		}
             }
         }
+        stage('SonarQube Analysis') {
+            	    steps {
+                       // Execute SonarQube analysis using Maven
+        	     	    withCredentials([string(credentialsId: 'sona-token', variable: 'SONAR_TOKEN')]) {
+                            sh "mvn sonar:sonar -Dsonar.login=${env.SONAR_TOKEN}"
+        		   }
+            		}
+        	    }
+
         }
         }
