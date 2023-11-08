@@ -76,11 +76,9 @@ pipeline {
 	stage('Docker') {
     		steps {
         		script {
-			            def dockerCredentials = credentials('dockerhub')
-			            def dockerAuth = "-u ${dockerCredentials.username} -p ${dockerCredentials.password}"
+			            def dockerCredentials = credentials('dockerhub_id')
+			            def dockerAuth = "-u ${dockerCredentials.USR} -p ${dockerCredentials.PSW}"
 			            
-			            // Masking the password in the logs
-			            echo "Logging into Docker Hub as ${dockerCredentials.username}"
 			            sh "docker login $dockerAuth"
 			            
 			            // Pushing the Docker image
