@@ -26,7 +26,7 @@ services:
   prometheus:
     image: prom/prometheus
     volumes:
-      - /var/lib/jenkins/workspace/Khardeni_5SAE3/prometheus.yml:/etc/prometheus/prometheus.yml
+      - /var/lib/jenkins/workspace/Khardeni_5SAE3/prometheus.yml
     ports:
       - "9090:9090"
     depends_on:
