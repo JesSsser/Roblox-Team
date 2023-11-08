@@ -1,5 +1,7 @@
 pipeline {
 	environment { 
+	dockerCredentials = credentials('dockerhub_id')
+	dockerAuth = "-u ${dockerCredentials.USR} -p ${dockerCredentials.PSW}"
 	GRAFANA_URL = 'http://192.168.33.10:3000'
         PROMETHEUS_URL = 'http://192.168.33.10:9090'
    		 }
@@ -76,8 +78,7 @@ pipeline {
 	stage('Docker') {
     		steps {
         		script {
-			            def dockerCredentials = credentials('dockerhub_id')
-			            def dockerAuth = "-u ${dockerCredentials.USR} -p ${dockerCredentials.PSW}"
+			            
 			            
 			            sh "docker login $dockerAuth"
 			            
