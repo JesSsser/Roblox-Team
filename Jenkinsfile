@@ -92,50 +92,48 @@ pipeline {
        			 } 
 
      */
+stage('Email Notifications') {
+    steps {
+        script {
+            def emailSubject
+            def emailBody
 
-	    stage('Email Notifications') {
-            steps {
-                script {
-                    def emailSubject
-                    def emailBody
-
-                    if (currentBuild.resultIsBetterOrEqualTo('FAILURE')) {
-                        emailSubject = "Pipeline Failed: ${currentBuild.fullDisplayName}"
-                        emailBody = '''<p>Dear Team,</p>
-                                       <p>The Jenkins pipeline ${currentBuild.fullDisplayName} has failed.</p>
-                                       <p>Details:</p>
-                                       <ul>
-                                           <li><strong>Project/Module:</strong> ${JOB_NAME}</li>
-                                           <li><strong>Build Number:</strong> ${BUILD_NUMBER}</li>
-                                           <li><strong>Stage Name:</strong> Docker compose</li>
-                                           <li><strong>Failure Cause:</strong> ${BUILD_FAILURE_ANALYSIS}</li>
-                                       </ul>
-                                       <p>Best regards,<br>Your Jenkins Server</p>
-                                    '''
-                    } else {
-                        emailSubject = "Pipeline Successful: ${currentBuild.fullDisplayName}"
-                        emailBody = '''<p>Dear Team,</p>
-                                       <p>The Jenkins pipeline ${currentBuild.fullDisplayName} has completed successfully.</p>
-                                       <p>Details:</p>
-                                       <ul>
-                                           <li><strong>Project/Module:</strong> ${JOB_NAME}</li>
-                                           <li><strong>Build Number:</strong> ${BUILD_NUMBER}</li>
-                                           <li><strong>Stage Name:</strong> Docker compose</li>
-                                       </ul>
-                                       <p>Best regards,<br>Your Jenkins Server</p>
-                                    '''
-                    }
-
-                    emailext(
-                        subject: emailSubject,
-                        body: emailBody,
-                        to: 'mouhibbengayes7@gmail.com',
-                        replyTo: 'noreply@example.com',
-                        mimeType: 'text/html'
-                    )
-                }
+            if (currentBuild.resultIsBetterOrEqualTo('FAILURE')) {
+                emailSubject = "Pipeline Failed: ${currentBuild.fullDisplayName}"
+                emailBody = """<p>Dear Team,</p>
+                               <p>The Jenkins pipeline ${currentBuild.fullDisplayName} has failed.</p>
+                               <ul>
+                                   <li><strong>Project/Module:</strong> ${JOB_NAME}</li>
+                                   <li><strong>Build Number:</strong> ${BUILD_NUMBER}</li>
+                                   <li><strong>Stage Name:</strong> Docker compose</li>
+                                   <li><strong>Failure Cause:</strong> ${BUILD_FAILURE_ANALYSIS}</li>
+                               </ul>
+                               <p>Best regards,<br>Your Jenkins Server</p>
+                            """
+            } else {
+                emailSubject = "Pipeline Successful: ${currentBuild.fullDisplayName}"
+                emailBody = """<p>Dear Team,</p>
+                               <p>The Jenkins pipeline ${currentBuild.fullDisplayName} has completed successfully.</p>
+                               <ul>
+                                   <li><strong>Project/Module:</strong> ${JOB_NAME}</li>
+                                   <li><strong>Build Number:</strong> ${BUILD_NUMBER}</li>
+                                   <li><strong>Stage Name:</strong> Docker compose</li>
+                               </ul>
+                               <p>Best regards,<br>Your Jenkins Server</p>
+                            """
             }
+
+            emailext(
+                subject: emailSubject,
+                body: emailBody,
+                to: 'mouhibbengayes7@gmail.com',
+                replyTo: 'noreply@example.com',
+                mimeType: 'text/html'
+            )
         }
+    }
+}
+
     
 	
 	
