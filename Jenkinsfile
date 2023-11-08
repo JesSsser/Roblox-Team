@@ -29,7 +29,7 @@ pipeline {
         stage('MVN Build') {
             steps {
                 script {
-                    sh 'mvn compil'
+                    sh 'mvn compile'
 		}
             }	
         }
