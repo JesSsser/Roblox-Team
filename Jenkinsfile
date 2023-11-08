@@ -1,5 +1,5 @@
 pipeline {
-     try { emailext body:"Pipeline status", subject:"Pipeline status", to:"mouhibbengayes7@gmail.com"
+     
 	environment { 
 	GRAFANA_URL = 'http://192.168.33.10:3000'
         PROMETHEUS_URL = 'http://192.168.33.10:9090'
@@ -103,5 +103,5 @@ pipeline {
 	
 	    
   	}
-	 }catch (err){ emailext body:"${err}", subject:"Pipeline status : Failure", to:"mouhibbengayes7@gmail.com"}
+	
 }	
