@@ -105,10 +105,8 @@ pipeline {
 		            <body>
 		                <h2 style="color: green;">Build Successful</h2>
 		                <p>The build for ${currentBuild.fullDisplayName} was successful.</p>
-		                <p>Additional details can be added here.</p>
 		            </body>
 		        </html>''',
-		        recipientProviders: [[$class: 'DevelopersRecipientProvider']],
 		        to: 'jesser.elouni@esprit.tn',
 		        mimeType: 'text/html'
 		    )
@@ -121,10 +119,8 @@ pipeline {
 		            <body>
 		                <h2 style="color: red;">Build Failed</h2>
 		                <p>The build for ${currentBuild.fullDisplayName} has failed.</p>
-		                <p>Additional details can be added here.</p>
 		            </body>
 		        </html>''',
-		        recipientProviders: [[$class: 'DevelopersRecipientProvider']],
 		        to: 'jesser.elouni@esprit.tn',
 		        mimeType: 'text/html'
 		    )
