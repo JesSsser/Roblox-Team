@@ -6,6 +6,10 @@ pipeline {
 	
     agent any
 
+try{
+	
+emailext body:"Pipeline status", subject:"Pipeline status", to:"mouhibbengayes7@gmail.com"
+	
     stages {
         stage('Checkout Git') {
             steps {
@@ -101,4 +105,8 @@ pipeline {
 	
 	    
   	}
-    }
+    }catch (err) {
+	emailext body:"${err}", subject:"Pipeline status : Failure", to:"mouhibbengayes7@gmail.com"}
+
+    
+}	
