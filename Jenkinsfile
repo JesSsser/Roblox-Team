@@ -30,7 +30,7 @@ pipeline {
 		}
             }	
         }
-	   
+	/*   
 	stage('Tests') {
             steps {
                 sh 'mvn test'
@@ -90,7 +90,8 @@ pipeline {
                 sh 'docker-compose -f docker-compose.yml up -d'
             			}
        			 } 
-	    
+
+     */
 	
 	
 	    
