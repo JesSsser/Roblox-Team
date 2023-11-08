@@ -108,6 +108,8 @@ pipeline {
 		            </body>
 		        </html>''',
 		        to: 'jesser.elouni@esprit.tn',
+			mimeType: 'text/html'
+
 		    )
 		}
 		
@@ -121,6 +123,7 @@ pipeline {
 		            </body>
 		        </html>''',
 		        to: 'jesser.elouni@esprit.tn',
+			mimeType: 'text/html'
 		    )
 		}
 
