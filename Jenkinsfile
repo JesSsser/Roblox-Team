@@ -92,44 +92,7 @@ pipeline {
        			 } 
 
      */
-	stage('Email Notifications') {
-    steps {
-        script {
-            def emailSubject
-            def emailBody
-            def failureCause = ''
-
-            if (currentBuild.resultIsBetterOrEqualTo('FAILURE')) {
-                def buildResult = currentBuild.rawBuild.result
-                if (buildResult.isWorseThan(hudson.model.Result.SUCCESS)) {
-                    // Get the failure cause if the build result is worse than SUCCESS
-                    def buildCauseAction = currentBuild.rawBuild.getAction(hudson.model.CauseAction.class)
-                    if (buildCauseAction) {
-                        def buildCauses = buildCauseAction.causes
-                        if (buildCauses) {
-                            failureCause = buildCauses[0].toString()
-                        }
-                    }
-                }
-
-                emailSubject = "Pipeline Failed: ${currentBuild.fullDisplayName}"
-                // Rest of your email content
-            } else {
-                emailSubject = "Pipeline Successful: ${currentBuild.fullDisplayName}"
-                // Rest of your email content
-            }
-
-            emailext(
-                subject: emailSubject,
-                body: emailBody,
-                to: 'mouhibbengayes7@gmail.com',
-                replyTo: 'noreply@example.com',
-                mimeType: 'text/html'
-            )
-        }
-    }
-}
-
+	
 
 
     
