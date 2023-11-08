@@ -92,21 +92,24 @@ pipeline {
        			 } 
 
      */
-stage('Email Notifications') {
-    steps {
-        script {
+	stage('Email Notifications') {
+          steps {
+        	script {
             def emailSubject
             def emailBody
+
+            def failureCause = currentBuild.rawBuild.failure?.getStackTrace()?.toString()
 
             if (currentBuild.resultIsBetterOrEqualTo('FAILURE')) {
                 emailSubject = "Pipeline Failed: ${currentBuild.fullDisplayName}"
                 emailBody = """<p>Dear Team,</p>
                                <p>The Jenkins pipeline ${currentBuild.fullDisplayName} has failed.</p>
+                               <p>Failure Cause:</p>
+                               <pre>${failureCause}</pre>
                                <ul>
                                    <li><strong>Project/Module:</strong> ${JOB_NAME}</li>
                                    <li><strong>Build Number:</strong> ${BUILD_NUMBER}</li>
                                    <li><strong>Stage Name:</strong> Docker compose</li>
-                                   <li><strong>Failure Cause:</strong> ${BUILD_FAILURE_ANALYSIS}</li>
                                </ul>
                                <p>Best regards,<br>Your Jenkins Server</p>
                             """
@@ -133,6 +136,7 @@ stage('Email Notifications') {
         }
     }
 }
+
 
     
 	
