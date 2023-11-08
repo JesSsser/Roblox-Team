@@ -1,6 +1,5 @@
 pipeline {
 	environment { 
-        DOCKER_CREDENTIALS = credentials('dockerhub_id')
 	GRAFANA_URL = 'http://192.168.33.10:3000'
         PROMETHEUS_URL = 'http://192.168.33.10:9090'
    		 }
@@ -31,7 +30,7 @@ pipeline {
 		}
             }	
         }
-	     
+	  /*   
 	stage('Tests') {
             steps {
                 sh 'mvn test'
@@ -55,7 +54,7 @@ pipeline {
                     sh "mvn sonar:sonar -Dsonar.login=${env.SONAR_TOKEN}"
 		   }
     		}
-	    } 
+	    } */
 	    
 	
 	stage('Nexus') {
@@ -75,15 +74,13 @@ pipeline {
 	    }
 
 	stage('Deploy Docker') {
-	   steps {
-		 script {
-                    
-                           sh "docker login -u ${DOCKER_CREDENTIALS_USR} -p ${DOCKER_CREDENTIALS_PSW}"
-                 
-                           sh 'docker push mouhibbg/kaddem-0.0.1.jar'
-               		 }
-	   	 }
-	     }
+    script {
+        def DOCKER_CREDENTIALS = credentials('dockerhub_id')
+        sh "docker login -u ${DOCKER_CREDENTIALS_USR} -p ${DOCKER_CREDENTIALS_PSW}"
+        sh 'docker push mouhibbg/kaddem-0.0.1.jar'
+   	 }
+		}
+
 
 	stage('Docker compose') {
             steps {
