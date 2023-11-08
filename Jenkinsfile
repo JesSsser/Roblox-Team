@@ -97,8 +97,8 @@ pipeline {
 	stage('Prometheus And Grafana'){ 
 		steps {
            
-        sh "sudo docker start prometheus"
-	sh "sudo docker start grafana"
+        sh "docker start prometheus"
+	sh "docker start grafana"
 		}
 	}
 
