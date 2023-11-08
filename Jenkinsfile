@@ -30,7 +30,7 @@ pipeline {
 		}
             }	
         }
-	  /*   
+	   
 	stage('Tests') {
             steps {
                 sh 'mvn test'
@@ -54,7 +54,7 @@ pipeline {
                     sh "mvn sonar:sonar -Dsonar.login=${env.SONAR_TOKEN}"
 		   }
     		}
-	    } */
+	    } 
 	    
 	
 	stage('Nexus') {
@@ -85,23 +85,13 @@ pipeline {
     }
 
 
-
-
-
-
 	stage('Docker compose') {
             steps {
                 sh 'docker-compose -f docker-compose.yml up -d'
             			}
        			 } 
 	    
-	stage('Prometheus') {
-            steps {
-                script {
-                    sh "curl -XPOST ${PROMETHEUS_URL}/api/v1/alerts"
-                }
-            }
-        }
+	
 	
 	    
   	}
