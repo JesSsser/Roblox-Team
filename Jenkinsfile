@@ -33,7 +33,7 @@ pipeline {
 		}
             }	
         }
-	/*   
+	
 	stage('Tests') {
             steps {
                 sh 'mvn test'
@@ -94,7 +94,7 @@ pipeline {
             			}
        			 } 
 
-     */
+     
 	
 	
 
