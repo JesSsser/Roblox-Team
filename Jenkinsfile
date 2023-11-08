@@ -97,35 +97,34 @@ pipeline {
         }
 	
   	}
-	  post {
-		success {
-		    emailext(
-		        subject: "Build Successful: ${currentBuild.fullDisplayName}",
-		        body: '''<html>
-		            <body>
-		                <h2 style="color: green;">Build Successful</h2>
-		                <p>The build for ${currentBuild.fullDisplayName} was successful.</p>
-		            </body>
-		        </html>''',
-		        to: 'jesser.elouni@esprit.tn',
-			mimeType: 'text/html'
-
-		    )
-		}
+	post {
+		    success {
+		        emailext(
+		            subject: "Build Successful: ${BUILD_TAG}",
+		            body: '''<html>
+		                <body>
+		                    <h2 style="color: green;">Build Successful</h2>
+		                    <p>The build for ${BUILD_TAG} was successful.</p>
+		                </body>
+		            </html>''',
+		            to: 'jesser.elouni@esprit.tn',
+		            mimeType: 'text/html'
+		        )
+		    }
 		
-		failure {
-		    emailext(
-		        subject: "Build Failed: ${currentBuild.fullDisplayName}",
-		        body: '''<html>
-		            <body>
-		                <h2 style="color: red;">Build Failed</h2>
-		                <p>The build for ${currentBuild.fullDisplayName} has failed.</p>
-		            </body>
-		        </html>''',
-		        to: 'jesser.elouni@esprit.tn',
-			mimeType: 'text/html'
-		    )
+		    failure {
+		        emailext(
+		            subject: "Build Failed: ${BUILD_TAG}",
+		            body: '''<html>
+		                <body>
+		                    <h2 style="color: red;">Build Failed</h2>
+		                    <p>The build for ${BUILD_TAG} has failed.</p>
+		                </body>
+		            </html>''',
+		            to: 'jesser.elouni@esprit.tn',
+		            mimeType: 'text/html'
+		        )
+		    }
 		}
-
    	 }
     }
