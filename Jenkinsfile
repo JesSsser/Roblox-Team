@@ -1,7 +1,6 @@
 pipeline {
 	environment { 
 	dockerCredentials = credentials('dockerhub_id')
-	dockerAuth = "-u ${dockerCredentials.USR} -p ${dockerCredentials.PSW}"
 	GRAFANA_URL = 'http://192.168.33.10:3000'
         PROMETHEUS_URL = 'http://192.168.33.10:9090'
    		 }
@@ -80,8 +79,7 @@ pipeline {
         		script {
 			            
 			            
-			            sh "docker login $dockerAuth"
-			            
+ 				sh "docker login -u ${dockerCredentials_USR} -p ${dockerCredentials_PSW}"			            
 			            // Pushing the Docker image
 			            sh 'docker push mouhibbg/kaddem-0.0.1.jar'
 				        }
