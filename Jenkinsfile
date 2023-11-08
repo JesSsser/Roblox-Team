@@ -20,6 +20,14 @@ pipeline {
 		}
             }	
         }
+        stage('Start Monitoring Services') {
+            steps {
+                script {
+                    // Start Prometheus and Grafana with Docker Compose
+                    sh 'docker-compose -f docker-compose.yml up -d prometheus grafana'
+                }
+            }
+        }
          stage('JUNIT/JACOCO') {
     steps {
         script {
@@ -86,14 +94,22 @@ pipeline {
             }
                 
                 }
-        stage(' Docker Compose BUILD/RUN') {
+        
+
+        // Your existing stages like MAVEN, JUNIT/JACOCO, SonarQube Analysis, etc.
+
+        stage('Docker Compose BUILD/RUN') {
             steps {
                 script {
-                    // Assuming docker-compose.yml is in the same directory as Jenkinsfile
-                    sh 'docker-compose up -d --build'
+                    // Start your application and database with Docker Compose
+                    sh 'docker-compose -f docker-compose.yml up -d app db'
                 }
             }
         }
+
+        // Any other stages you might have
+    }
+
 
         // Add other stages as needed
     }
@@ -106,7 +122,7 @@ pipeline {
             }
         }
     } */
-    }
+
  
        
   
