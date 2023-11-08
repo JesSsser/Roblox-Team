@@ -93,37 +93,30 @@ pipeline {
 
      */
 	stage('Email Notifications') {
-          steps {
-        	script {
+    steps {
+        script {
             def emailSubject
             def emailBody
-
-            def failureCause = currentBuild.rawBuild.failure?.getStackTrace()?.toString()
+            def failureCause = ''
 
             if (currentBuild.resultIsBetterOrEqualTo('FAILURE')) {
+                def buildResult = currentBuild.rawBuild.result
+                if (buildResult.isWorseThan(hudson.model.Result.SUCCESS)) {
+                    // Get the failure cause if the build result is worse than SUCCESS
+                    def buildCauseAction = currentBuild.rawBuild.getAction(hudson.model.CauseAction.class)
+                    if (buildCauseAction) {
+                        def buildCauses = buildCauseAction.causes
+                        if (buildCauses) {
+                            failureCause = buildCauses[0].toString()
+                        }
+                    }
+                }
+
                 emailSubject = "Pipeline Failed: ${currentBuild.fullDisplayName}"
-                emailBody = """<p>Dear Team,</p>
-                               <p>The Jenkins pipeline ${currentBuild.fullDisplayName} has failed.</p>
-                               <p>Failure Cause:</p>
-                               <pre>${failureCause}</pre>
-                               <ul>
-                                   <li><strong>Project/Module:</strong> ${JOB_NAME}</li>
-                                   <li><strong>Build Number:</strong> ${BUILD_NUMBER}</li>
-                                   <li><strong>Stage Name:</strong> Docker compose</li>
-                               </ul>
-                               <p>Best regards,<br>Your Jenkins Server</p>
-                            """
+                // Rest of your email content
             } else {
                 emailSubject = "Pipeline Successful: ${currentBuild.fullDisplayName}"
-                emailBody = """<p>Dear Team,</p>
-                               <p>The Jenkins pipeline ${currentBuild.fullDisplayName} has completed successfully.</p>
-                               <ul>
-                                   <li><strong>Project/Module:</strong> ${JOB_NAME}</li>
-                                   <li><strong>Build Number:</strong> ${BUILD_NUMBER}</li>
-                                   <li><strong>Stage Name:</strong> Docker compose</li>
-                               </ul>
-                               <p>Best regards,<br>Your Jenkins Server</p>
-                            """
+                // Rest of your email content
             }
 
             emailext(
@@ -136,6 +129,7 @@ pipeline {
         }
     }
 }
+
 
 
     
