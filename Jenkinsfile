@@ -3,18 +3,6 @@ pipeline {
 	GRAFANA_URL = 'http://192.168.33.10:3000'
         PROMETHEUS_URL = 'http://192.168.33.10:9090'
    		 }
-
-    def DEFAULT_SUBJECT = "Your default subject"
-    def DEFAULT_CONTENT = "Your default content"
-    def PROJECT_NAME = env.JOB_NAME
-    def BUILD_NUMBER = env.BUILD_NUMBER
-    def BUILD_STATUS = currentBuild.resultIsBetterOrEqualTo('FAILURE') ? 'FAILURE' : 'SUCCESS'
-    def CAUSE = currentBuild.causes.collect { it.shortDescription }.join(', ')
-    def BUILD_URL = env.BUILD_URL
-    def FAILED_TESTS = "Information about failed tests"
-    def CHANGES = "Changes made since last build"
-    def CHANGES_SINCE_LAST_SUCCESS = "Changes made since last successful build"
-
 	
     agent any
 
@@ -109,6 +97,16 @@ pipeline {
 	stage('Email Notifications') {
             steps {
                 script {
+		    def DEFAULT_SUBJECT = "Your default subject"
+		    def DEFAULT_CONTENT = "Your default content"
+		    def PROJECT_NAME = env.JOB_NAME
+		    def BUILD_NUMBER = env.BUILD_NUMBER
+		    def BUILD_STATUS = currentBuild.resultIsBetterOrEqualTo('FAILURE') ? 'FAILURE' : 'SUCCESS'
+		    def CAUSE = currentBuild.causes.collect { it.shortDescription }.join(', ')
+		    def BUILD_URL = env.BUILD_URL
+		    def FAILED_TESTS = "Information about failed tests"
+		    def CHANGES = "Changes made since last build"
+		    def CHANGES_SINCE_LAST_SUCCESS = "Changes made since last successful build"	
                     def emailSubject
                     def emailBody
                     
