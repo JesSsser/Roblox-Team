@@ -73,15 +73,19 @@ pipeline {
 		 }
 	    }
 
-	stage('Docker deploy') {
-	   steps {
-		 script {
-			def DOCKER_CREDENTIALS = credentials('dockerhub_id')
-        		sh "docker login -u ${DOCKER_CREDENTIALS_USR} -p ${DOCKER_CREDENTIALS_PSW}"
-       			sh 'docker push mouhibbg/kaddem-0.0.1.jar'
-			}
-		 }
-	    }
+	stage('Deploy Docker') {
+    		environment {
+		        DOCKER_USERNAME = credentials('dockerhub_id_USR')
+		        DOCKER_PASSWORD = credentials('dockerhub_id_PSW')
+    			}
+		    steps {
+		        script {
+		            sh "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
+		            sh 'docker push mouhibbg/kaddem-0.0.1.jar'
+		        }
+    				}
+					}
+
 
 
 	stage('Docker compose') {
