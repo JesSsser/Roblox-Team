@@ -26,8 +26,8 @@ services:
   prometheus:
     image: prom/prometheus
      volumes:
-      - ./prometheus-data:/prometheus  #  storing time series data
-      - ./prometheus-config/prometheus.yml:/etc/prometheus/prometheus.yml  # Configuration volume
+      - ./prometheus-data:/prometheus
+      - ./prometheus-config/prometheus.yml:/etc/prometheus/prometheus.yml
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'  # Command to start Prometheus with the config file
       - '--storage.tsdb.path=/prometheus'  # Path where Prometheus time series data will be stored
