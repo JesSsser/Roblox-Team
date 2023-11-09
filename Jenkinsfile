@@ -43,8 +43,7 @@ pipeline {
             // Push de l'image Docker vers Docker Hub
             sh "docker push '$imageName'"
 
-            // Déconnexion de Docker Hub
-            sh "docker logout"
+           
         }
      }
     }
