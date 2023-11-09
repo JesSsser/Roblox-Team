@@ -5,13 +5,17 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=0000
       - MYSQL_DATABASE=kaddemdb
+    volumes:
+      - db:/var/lib/mysql
   spring-app:
     image: aminemosbeh/kaddem.jar
     depends_on:
       - mysql
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/kaddemdb
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=0000
     ports:
       - 8089:8089
+    stdin_open: true
+    tty: true
+    volumes:
+      - .m2:/root/.m2    
+volumes:
+  db:

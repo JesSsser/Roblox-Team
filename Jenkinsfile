@@ -14,13 +14,13 @@ pipeline {
 	    	sh 'mvn compile'
             }
         }
-	stage('SonarQube') {
+	/* stage('SonarQube') {
             steps {
                 withSonarQubeEnv('sonar') {
                     sh 'mvn sonar:sonar'
                 }
             }
-        }
+        }*/
         stage('Nexus') {
             steps {
                 sh 'mvn deploy -DskipTests'
@@ -29,7 +29,7 @@ pipeline {
     	stage('Docker') {
    	    steps {
 		 script {
-			/*  sh 'docker build -t aminemosbeh/kaddem.jar .'*/
+			  sh 'docker build -t aminemosbeh/kaddem.jar .'
                    	 // 'dockerhub' is the ID you've given to the credentials in Jenkins.
                    	 withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'DOCKERHUB_PSW', usernameVariable: 'DOCKERHUB_USR')]) {
                         // This will mask the password in the logs
@@ -38,6 +38,11 @@ pipeline {
 			}
 	    	}
 	    }
+		stage('Docker compose') {
+            	steps {
+                sh 'docker-compose -f docker-compose.yml up -d'
+            }
+        }
     }
     post {
         // Define post-build actions here, such as notifications, etc.
