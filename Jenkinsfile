@@ -48,7 +48,7 @@ pipeline {
         stage('Docker Build') {
     	    steps {
                 script {
-    			    sh "docker login -u rafik101 -p Arkeo12301*"			            
+    			    sh "docker login -u rafik101 -p 213JMT1477"			            
     			    // Pushing the Docker image
     			    sh 'docker push rafik101/kaddem-6.6.6.jar'
 				}
