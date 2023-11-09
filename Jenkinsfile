@@ -110,11 +110,11 @@ pipeline {
 	post {
 		    success {
 		        mail(
-		            subject: "Build Successful: ${BUILD_TAG}",
+		            subject: "Build Successful:  ${currentBuild.fullDisplayName}",
 		            body: '''<html>
 		                <body>
 		                    <h2 style="color: green;">Build Successful</h2>
-		                    <p>The build for ${BUILD_TAG} was successful.</p>
+		                    <p>The build for '''${currentBuild.fullDisplayName}'''was successful.</p>
 		                </body>
 		            </html>''',
 		            to: 'jesser.elouni@esprit.tn',
