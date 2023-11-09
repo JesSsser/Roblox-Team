@@ -1,21 +1,18 @@
 version: '3'
 services:
-  mysqldb:
+  mysql:
     image: mysql:latest
     environment:
-      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_ROOT_PASSWORD=0000
       - MYSQL_DATABASE=kaddemdb
-    ports:
-      - "3307:3306"     
     volumes:
       - db:/var/lib/mysql
-  backend:
+  spring-app:
+    image: aminemosbeh/kaddem.jar
     depends_on:
       - mysql
-    build: ./
-    restart: on-failure
     ports:
-      - "8090:8089"
+      - 8089:8089
     stdin_open: true
     tty: true
     volumes:
