@@ -25,10 +25,15 @@ services:
 
   prometheus:
     image: prom/prometheus
-    volumes:
-      - /var/lib/jenkins/workspace/Khardeni_5SAE3/prometheus.yml
+     volumes:
+      - ./prometheus-data:/prometheus  #  storing time series data
+      - ./prometheus-config/prometheus.yml:/etc/prometheus/prometheus.yml  # Configuration volume
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'  # Command to start Prometheus with the config file
+      - '--storage.tsdb.path=/prometheus'  # Path where Prometheus time series data will be stored
+      - '--web.enable-lifecycle'
     ports:
-      - "9091:9090"
+      - "9090:9090"
     depends_on:
       - app
       - db
