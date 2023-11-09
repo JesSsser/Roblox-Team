@@ -8,7 +8,7 @@ services:
     volumes:
       - db:/var/lib/mysql
   spring-app:
-    image: rafiksellami/kaddem.jar
+    image: rafik101/kaddem-6.6.6.jar
     depends_on:
       - mysql
     ports:
