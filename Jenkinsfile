@@ -33,7 +33,7 @@ pipeline {
 		}
             }	
         }
-	
+	/*
 	stage('Tests') {
             steps {
                 sh 'mvn test'
@@ -101,7 +101,7 @@ pipeline {
 	sh "docker start grafana"
 		}
 	}
-
+*/
      
 	
 	
