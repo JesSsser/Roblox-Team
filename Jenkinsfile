@@ -26,28 +26,27 @@ pipeline {
                 sh 'mvn deploy -DskipTests'
             }
         }
-    	stage('Build Docker Image Back-End et push sur DockerHub') {
-    steps {
-        script {
-            def DOCKERHUB_USERNAME= "aminemosbeh"
-            def DOCKERHUB_TOKEN= "dckr_pat_GM1LZjJvmfq3hETClQAoBRxRFO8"
-            def imageName = "'${DOCKERHUB_USERNAME}'/devops-project-2.1-back-end:2.0.0"
-            def dockerfile = 'Dockerfile'
+    	stage('Building Docker image') {
+        	   steps {
+        		 script {
+        			// Generating image from Dockerfile
+        			  sh 'docker build -t aminemosbeh/devopsproject-0.0.1.jar .'
+        			}
+        		 }
+        	    }
+        stage('Push Docker Image') {
+            steps {
 
-            // Se connecter à Docker Hub
-            sh "docker login -u '${DOCKERHUB_USERNAME}' -p '${DOCKERHUB_TOKEN}'"
 
-            // Build de l'image Docker
-            sh "docker build -t '$imageName' -f '$dockerfile' ."
-		
-            sh "docker login -u '${DOCKERHUB_USERNAME}' -p '${DOCKERHUB_TOKEN}'"
+                // Log in to Docker Hub with your credentials
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+                }
 
-            sh "docker push '$imageName'"
-
-           
+                // Push the Docker image to Docker Hub
+                sh "docker push aminemosbeh/devopsproject-0.0.1.jar"
+            }
         }
-     }
-    }
 		stage('Docker compose') {
             	steps {
                 sh 'docker-compose -f docker-compose.yml up -d'
