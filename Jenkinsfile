@@ -26,18 +26,28 @@ pipeline {
                 sh 'mvn deploy -DskipTests'
             }
         }
-    	stage('Docker') {
-   	    steps {
-		 script {
-			  sh 'docker build -t aminemosbeh/kaddem.jar .'
-                   	 // 'dockerhub' is the ID you've given to the credentials in Jenkins.
-                   	 withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'DOCKERHUB_PSW', usernameVariable: 'DOCKERHUB_USR')]) {
-                        // This will mask the password in the logs
-                        sh "docker login -u $DOCKERHUB_USR -p $DOCKERHUB_PSW"		   }     
-			sh 'docker push aminemosbeh/kaddem.jar'
-			}
-	    	}
-	    }
+    	stage('Build Docker Image Back-End et push sur DockerHub') {
+    steps {
+        script {
+            def DOCKERHUB_USERNAME= "aminemosbeh"
+            def DOCKERHUB_TOKEN= "dckr_pat_GM1LZjJvmfq3hETClQAoBRxRFO8"
+            def imageName = "'${DOCKERHUB_USERNAME}'/devops-project-2.1-back-end:2.0.0"
+            def dockerfile = 'Dockerfile'
+
+            // Se connecter à Docker Hub
+            sh "docker login -u '${DOCKERHUB_USERNAME}' -p '${DOCKERHUB_TOKEN}'"
+
+            // Build de l'image Docker
+            sh "docker build -t '$imageName' -f '$dockerfile' ."
+
+            // Push de l'image Docker vers Docker Hub
+            sh "docker push '$imageName'"
+
+            // Déconnexion de Docker Hub
+            sh "docker logout"
+        }
+     }
+    }
 		stage('Docker compose') {
             	steps {
                 sh 'docker-compose -f docker-compose.yml up -d'
