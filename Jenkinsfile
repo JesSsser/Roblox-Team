@@ -36,6 +36,24 @@ pipeline {
               }
 
            }
+
+	    stage('Docker image') {
+	        steps {
+    		    script {
+    			    sh 'docker build -t rafik101/kaddem-6.6.6.jar .'
+    			}
+		    }
+	    }
+
+        stage('Docker Build') {
+    	    steps {
+                script {
+    			    sh "docker login -u rafik101 -p Arkeo12301*"			            
+    			    // Pushing the Docker image
+    			    sh 'docker push rafik101/kaddem-6.6.6.jar'
+				}
+			}
+        }
 	    stage('Docker compose') {
             steps {
                 sh 'docker-compose -f docker-compose.yml up -d --build'
