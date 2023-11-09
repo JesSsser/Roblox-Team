@@ -1,4 +1,4 @@
 FROM openjdk:11
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} kaddem.jar
-ENTRYPOINT ["java","-jar","/kaddem.jar"]
+EXPOSE 8089
+ADD target/kaddem-0.0.1.jar kaddem-0.0.1.jar
+ENTRYPOINT ["java","-jar","/kaddem-0.0.1.jar"]
