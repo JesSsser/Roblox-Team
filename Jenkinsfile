@@ -28,6 +28,13 @@ pipeline {
         		   }
             		}
         	    }
+    stage('NEXUS') {
+                steps {
+      		        script {
+              		        sh 'mvn deploy -DskipTests=true'
+    			}
+              }
 
+           }
         }
         }
