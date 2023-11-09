@@ -36,5 +36,11 @@ pipeline {
               }
 
            }
+	    stage('Docker compose') {
+            steps {
+                sh 'docker-compose -f docker-compose.yml up -d --build'
+            }
+        }
+	
         }
         }
