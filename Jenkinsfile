@@ -39,8 +39,9 @@ pipeline {
 
             // Build de l'image Docker
             sh "docker build -t '$imageName' -f '$dockerfile' ."
+		
+            sh "docker login -u '${DOCKERHUB_USERNAME}' -p '${DOCKERHUB_TOKEN}'"
 
-            // Push de l'image Docker vers Docker Hub
             sh "docker push '$imageName'"
 
            
