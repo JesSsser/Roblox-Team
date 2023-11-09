@@ -47,7 +47,7 @@ pipeline {
           	  	junit 'target/surefire-reports/*.xml'
           		jacoco()
 		   }
-        }*/
+        }
 
 	stage('SonarQube Analysis') {
     	    steps {
@@ -56,7 +56,7 @@ pipeline {
                     sh "mvn sonar:sonar -Dsonar.login=${env.SONAR_TOKEN}"
 		   }
     		}
-	    } */
+	    } 
 
 	 stage('Nexus deploy') {
             steps {
