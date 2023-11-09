@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment # Kubernetes resource kind we are creating
+metadata:
+  name: jesser_elouni_5sae3-backend 
+spec:
+  selector:
+    matchLabels:
+      app: jesser_elouni_5sae3-backend
+  replicas: 2 # Number of replicas that will be created for this deployment
+  template:
+    metadata:
+      labels:
+        app: jesser_elouni_5sae3-backend
+    spec:
+      containers:
+        - name: jesser_elouni_5sae3-backend
+          image: jesser_elouni_5sae3-backend 
+# Image that will be used to containers in the cluster
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8090 
+# The port that the container is running on in the cluster
