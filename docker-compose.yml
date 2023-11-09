@@ -28,7 +28,7 @@ services:
     volumes:
       - /var/lib/jenkins/workspace/Khardeni_5SAE3/prometheus.yml
     ports:
-      - "9090:9090"
+      - "9091:9090"
     depends_on:
       - app
       - db
