@@ -105,6 +105,11 @@ pipeline {
                 sh 'docker start grafana'
             }
         }
+	    stage('Kubernetes') {
+	    steps {
+		sh 'kubectl apply -f deployment.yaml'
+	    }
+	}
 	
   	}
 	post {
