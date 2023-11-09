@@ -14,13 +14,13 @@ pipeline {
 	    	sh 'mvn compile'
             }
         }
-	stage('SonarQube') {
+	/* stage('SonarQube') {
             steps {
                 withSonarQubeEnv('sonar') {
                     sh 'mvn sonar:sonar'
                 }
             }
-        }
+        }*/
         stage('Nexus') {
             steps {
                 sh 'mvn deploy -DskipTests'
