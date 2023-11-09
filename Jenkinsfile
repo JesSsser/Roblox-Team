@@ -40,8 +40,7 @@ pipeline {
 
                 // Log in to Docker Hub with your credentials
                 withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                    sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
-                }
+                   sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"                }
 
                 // Push the Docker image to Docker Hub
                 sh "docker push aminemosbeh/devopsproject-0.0.1.jar"
