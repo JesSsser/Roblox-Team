@@ -59,8 +59,23 @@ pipeline {
        	} 
     }
     post {
-        always {
-           emailext body: 'A Test EMail', recipientProviders: [[$class: 'StaticRecipientProvider', staticRecipients: 'houssemhosni13@gmail.com']], subject: 'Test'
-        }
+        success
+	    {
+	      emailext (
+	          subject: 'DevOPS',
+	          body: 'BUILT SUCCESSFULLY',
+	          to: 'houssemhosni13@gmail.com',
+	          recipientProviders: [ requestor() ]
+	        )
+	    }
+        failure
+	    {
+	      emailext (
+	          subject: 'DevOPS',
+	          body: 'BUILT HAD ERRORS',
+	          to: 'houssemhosni13@gmail.com',
+	          recipientProviders: [ requestor() ]
+	        )
+	    }
     }
 }
