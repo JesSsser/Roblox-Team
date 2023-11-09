@@ -9,7 +9,7 @@ services:
     volumes:
       - db:/var/lib/mysql
   back-rest:
-    image: houssem13/kaddem.jar
+    image: houssem13/kaddem-0.0.1.jar
     depends_on:
       - mysql
     ports:
