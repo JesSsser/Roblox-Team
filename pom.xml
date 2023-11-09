@@ -60,9 +60,10 @@
         </dependency>
 
         <!-- Micrometer Prometheus for exporting metrics in a format that Prometheus can scrape -->
-        <dependency>
+         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
     </dependencies>
