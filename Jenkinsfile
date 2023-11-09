@@ -31,7 +31,7 @@ pipeline {
 		}
             }	
         }
-/*
+
  	stage('Execute Tests') {
             steps {
                 // Run the Maven clean command
@@ -48,7 +48,7 @@ pipeline {
           		jacoco()
 		   }
         }*/
-/*
+
 	stage('SonarQube Analysis') {
     	    steps {
                // Execute SonarQube analysis using Maven
@@ -66,7 +66,7 @@ pipeline {
 			}
                    }
                }
-/*
+
 	stage('Building Docker image') {
 	   steps {
                 // Étape du build de l'image docker de l'application spring boot
@@ -88,18 +88,28 @@ pipeline {
                            sh 'docker push jesssser/kaddem-0.0.1.jar'
                 }
 	   	 }
-	     } */
+	     } 
 	
 	stage('Docker compose') {
             steps {
                 sh 'docker-compose -f docker-compose.yml up -d --build'
             }
         }
+	    stage('Start Prometheus') {
+            steps {
+                sh 'docker start prometheus'
+            }
+        }
+	    stage('Start grafana') {
+            steps {
+                sh 'docker start grafana'
+            }
+        }
 	
   	}
 	post {
 		    success {
-		        emailext(
+		        mail(
 		            subject: "Build Successful: ${BUILD_TAG}",
 		            body: '''<html>
 		                <body>
@@ -113,7 +123,7 @@ pipeline {
 		    }
 		
 		    failure {
-		        emailext(
+		        mail(
 		            subject: "Build Failed: ${BUILD_TAG}",
 		            body: '''<html>
 		                <body>
