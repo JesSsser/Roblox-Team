@@ -8,6 +8,7 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "contrat")
 @ToString
 public class Contrat implements Serializable{
     @Id
